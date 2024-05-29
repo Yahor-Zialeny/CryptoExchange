@@ -1,0 +1,250 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CryptoExchange</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    footer {
+        background-color: #092049;
+        padding: 20px;
+        color: #f9f9f9;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    header {
+        background-color: #092049;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+    }
+
+    #logo {
+        height: 70px;
+        width: 70px;
+        margin-left: 20px; /* Отступ слева для логотипа */
+    }
+
+    .logo {
+        margin-right: auto;
+    }
+
+    .nav {
+        display: flex;
+        list-style-type: none;
+        margin-left: auto;
+        float: right;
+    }
+
+    .nav li {
+        margin-left: 20px; /* Отступ между элементами навигации */
+    }
+
+    .nav a {
+        text-decoration: none;
+        color: #000;
+        padding: 10px 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .nav li {
+        display: inline-block;
+        margin-left: 20px;
+    }
+
+    .nav a {
+        display: inline-block;
+        text-decoration: none;
+        color: #000;
+        padding: 10px 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav a:hover {
+        background-color: #ddd; /* Светлый серый цвет фона при наведении */
+    }
+    .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .footer-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .social-icon {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .social-icon img {
+        width: 40px; /* Настройте размер иконок по своему усмотрению */
+        height: 40px;
+    }
+    #form-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    #form-title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .form-input {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .form-button {
+        background-color: #092049;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+</style>
+    <script th:inline="javascript">
+            $(document).ready(function() {
+            // Функция для получения актуального курса выбранной валюты
+            function getExchangeRate(currency) {
+                var apiKey = '3B9F4946-F22C-4B01-ADE3-60FDC6493658'; // Замените на ваш API ключ CoinAPI
+                var apiUrl = 'https://rest.coinapi.io/v1/exchangerate/' + currency + '/USD';
+
+                $.ajax({
+                    url: apiUrl,
+                    headers: {
+                        'X-CoinAPI-Key': apiKey
+                    },
+                    success: function (data) {
+                        var rate = data.rate; // Получаем курс обмена выбранной валюты к USD
+                        calculateAmount(rate);
+                    },
+                    error: function () {
+                        console.log('Ошибка при получении курса обмена');
+                    }
+                });
+            }
+
+            // Обработчик события изменения выбранной валюты
+            $("#currency-select").change(function() {
+            var currency = $(this).val();
+            $("#exchangeFromCurrency").text(currency);
+            $("#exchangeFromCurrencyHidden").val(currency);
+            getExchangeRate(currency);
+        });
+
+            // Обработчик события ввода продаваемой валюты
+            $("#amountSell").keyup(function() {
+            var currency = $("#currency-select").val();
+            getExchangeRate(currency);
+        });
+
+            // Функция для выполнения расчета
+            function calculateAmount(rate) {
+            var amount = parseFloat($("#amountSell").val());
+            var result = amount * rate * 0.95;
+            $("#fee").text("В итоговую сумму включена коммиссия сервиса в 5%")
+            $("#amountBuy").text(result.toFixed(2)+ " USD");
+            $("#amountBuyHidden").val(result.toFixed(2));
+        }
+        });
+    </script>
+
+</head>
+<body>
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <a  th:href="@{/}">
+                <img  id="logo" th:src="@{/images/logo.png}">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a th:href="@{/ExchangeForm}">Обменять</a></li>
+                <li><a th:href="@{/ExchangeForm}">Мои обмены</a></li>
+                <li><a th:href="@{/}">Выйти</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="form-container">
+    <h1 id="form-title">Обменник криптовалюты</h1>
+
+    <form method="post" th:object="${transaction}">
+        <label class="form-label" for="currency-select">Выберите валюту для обмена:</label>
+        <select class="form-input" id="currency-select">
+            <option value="USDT">USDT</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <!-- Добавьте другие валюты по вашему выбору -->
+        </select>
+
+        <h2>Вы выбрали: <span id="exchangeFromCurrency">USDT</span></h2>
+        <input type="hidden" id="exchangeFromCurrencyHidden" name="exchangeFromCurrency" th:value="*{exchangeFromCurrency}">
+
+        <label class="form-label" for="amountSell">Введите сумму продаваемой валюты:</label>
+        <input class="form-input" type="text" id="amountSell" th:field="*{amountSell}">
+
+        <h3>Итоговая сумма:</h3>
+        <div id="amountBuy"></div>
+        <div id="fee"></div>
+        <input type="hidden" id="amountBuyHidden" name="amountBuy" th:value="*{amountBuy}">
+
+        <h3 class="form-label">Введите номер рассчетного счета:</h3>
+        <input class="form-input" type="text" th:field="*{iban}">
+
+        <button class="form-button" type="submit">Обменять</button>
+    </form>
+</div>
+<footer>
+    <div class="container footer-content">
+        &copy; 2024 CryptoExchange. All rights reserved.
+        <div class="social-icons">
+            <a href="https://t.me/yahor_zialeny" class="social-icon"><img th:src="@{/images/tg.png}" alt="Telegram"></a>
+            <a href="https://www.linkedin.com/in/yahor-zialeny-051581260/" class="social-icon"><img th:src="@{/images/linkedin.png}" alt="LinkedIn"></a>
+            <a href="https://github.com/Yahor-Zialeny" class="social-icon"><img th:src="@{/images/github.png}" alt="Github"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

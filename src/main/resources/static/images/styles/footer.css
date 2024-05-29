@@ -1,0 +1,23 @@
+footer {
+    background-color: #092049;
+    padding: 20px;
+    color: #f9f9f9;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.social-icon {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.social-icon img {
+    width: 40px; /* Настройте размер иконок по своему усмотрению */
+    height: 40px;
+}

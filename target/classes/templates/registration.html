@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CryptoExchange</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        footer {
+            background-color: #092049;
+            padding: 20px;
+            color: #f9f9f9;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        header {
+            background-color: #092049;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        #logo {
+            height: 70px;
+            width: 70px;
+            margin-left: 20px; /* Отступ слева для логотипа */
+        }
+
+        .logo {
+            margin-right: auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style-type: none;
+            margin-left: auto;
+            float: right;
+        }
+
+        .nav li {
+            margin-left: 20px; /* Отступ между элементами навигации */
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .nav a {
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #ddd; /* Светлый серый цвет фона при наведении */
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .social-icon {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .social-icon img {
+            width: 40px; /* Настройте размер иконок по своему усмотрению */
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="container header-content">
+    <div class="logo">
+        <a  th:href="@{/}">
+            <img  id="logo" th:src="@{/images/logo.png}">
+        </a>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="@{/login}">Войти</a></li>
+            <li><a href="@{registr}">Зарегистрироваться</a></li>
+        </ul>
+    </nav>
+</div>
+<div>
+<h1>Регистрация</h1>
+<form method="POST" th:action="@{/register}" id="registerForm">
+    <label for="firstName">Имя: </label>
+    <input type="text" name="firstName"/><br/>
+    <label for="lastName">Фамилия: </label>
+    <input type="text" name="password"/><br/>
+    <label for="username">Имя пользователя: </label>
+    <input type="text" name="username"/><br/>
+    <label for="password">Пароль: </label>
+    <input type="password" name="password"/><br/>
+    <label for="confirm">Подтвердите пароль: </label>
+    <input type="password" name="confirm"/><br/>
+    <label for="email">Эелктронная почта: </label>
+    <input type="text" name="email"/><br/>
+    <label for="state">Страна: </label>
+    <input type="text" name="state"/><br/>
+    <label for="passportNumber">Номер паспорта: </label>
+    <input type="text" name="passportNumber"/><br/>
+    <label for="passportID">Идентификационный номер паспорта: </label>
+    <input type="text" name="passportID"/><br/>
+    <label for="phone">Номер телефона: </label>
+    <input type="text" name="phone"/><br/>
+    <input type="submit" value="Register"/>
+</form>
+</div>
+<footer>
+    <div class="container footer-content">
+        &copy; 2024 CryptoExchange. All rights reserved.
+        <div class="social-icons">
+            <a href="https://t.me/yahor_zialeny" class="social-icon"><img th:src="@{/images/tg.png}" alt="Telegram"></a>
+            <a href="https://www.linkedin.com/in/yahor-zialeny-051581260/" class="social-icon"><img th:src="@{/images/linkedin.png}" alt="LinkedIn"></a>
+            <a href="https://github.com/Yahor-Zialeny" class="social-icon"><img th:src="@{/images/github.png}" alt="Github"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

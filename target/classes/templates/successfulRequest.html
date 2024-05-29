@@ -1,0 +1,178 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CryptoExchange</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        footer {
+            background-color: #092049;
+            padding: 20px;
+            color: #f9f9f9;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        header {
+            background-color: #092049;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        #logo {
+            height: 70px;
+            width: 70px;
+            margin-left: 20px; /* Отступ слева для логотипа */
+        }
+
+        .logo {
+            margin-right: auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style-type: none;
+            margin-left: auto;
+            float: right;
+        }
+
+        .nav li {
+            margin-left: 20px; /* Отступ между элементами навигации */
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .nav a {
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #ddd; /* Светлый серый цвет фона при наведении */
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .social-icon {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .social-icon img {
+            width: 40px; /* Настройте размер иконок по своему усмотрению */
+            height: 40px;
+        }
+
+        #main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem 0; /* Небольшие отступы сверху и снизу */
+        }
+
+        #main-content > * {
+            margin: 0.5rem 0; /* Умеренные отступы между элементами */
+        }
+        .start-button {
+            display: inline-block;
+            padding: 15px 30px; /* Увеличенные отступы */
+            font-size: 18px; /* Увеличенный размер шрифта */
+            background-color: #092049;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .start-button:hover {
+            background-color: #053663;
+        }
+        .start-button a{
+            color: #f9f9f9;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <a  th:href="@{/}">
+                <img  id="logo" th:src="@{/images/logo.png}">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="@{/}">Обменять</a></li>
+                <li><a href="@{/}">Мои обмены</a></li>
+                <li><a href="@{/}">Выйти</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <div id="main-content">
+        <h1>Ваша заявка на обмен успешно принята</h1>
+        <div>Переведите
+            <span th:text="${amount}"></span>
+            <span th:text="${currency}"></span> на кошелек
+            <span th:text="${wallet}"></span> и после успешного зачисления средств на наш криптовалютный кошелек мы переведем
+            <span th:text="${usd}"></span> USD на ваш рассчетный счет(IBAN)
+        </div>
+        <button class="start-button"><a th:href="@{/ExchangeForm}">Обменять еще</a></button>
+    </div>
+<footer>
+    <div class="container footer-content">
+        &copy; 2024 CryptoExchange. All rights reserved.
+        <div class="social-icons">
+            <a href="https://t.me/yahor_zialeny" class="social-icon"><img th:src="@{/images/tg.png}" alt="Telegram"></a>
+            <a href="https://www.linkedin.com/in/yahor-zialeny-051581260/" class="social-icon"><img th:src="@{/images/linkedin.png}" alt="LinkedIn"></a>
+            <a href="https://github.com/Yahor-Zialeny" class="social-icon"><img th:src="@{/images/github.png}" alt="Github"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
